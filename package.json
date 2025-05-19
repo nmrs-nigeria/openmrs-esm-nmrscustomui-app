@@ -1,6 +1,6 @@
 {
   "name": "@nmrs-community/esm-nmrscustomui-app",
-  "version": "4.0.0",
+  "version": "1.0.1",
   "license": "MPL-2.0",
   "description": "An OpenMRS EMS application microfrontends for NigeriaMRS CustomUI",
   "browser": "dist/nmrs-community-esm-nmrscustomui-app.js",
@@ -24,15 +24,20 @@
   "browserslist": [
     "extends browserslist-config-openmrs"
   ],
+  "files": [
+    "dist/",
+    "package.json",
+    "README.md"
+  ],
   "keywords": [
     "openmrs",
     "microfrontends"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openmrs/openmrs-esm-template-app.git"
+    "url": "git+https://github.com/nmrs-nigeria/openmrs-esm-nmrscustomui-app.git"
   },
-  "homepage": "https://github.com/openmrs/openmrs-esm-template-app#readme",
+  "homepage": "https://github.com/nmrs-nigeria/openmrs-esm-nmrscustomui-app.git#readme",
   "publishConfig": {
     "access": "public"
   },
