@@ -19,6 +19,10 @@
       "name": "Brand box",
       "component": "blueBox",
       "slot": "Boxes"
+    }, {
+      "name": "patient-chart-table",
+      "component": "patientChart",
+      "slot": "top-of-all-patient-dashboards-slot"
     }
   ],
   "pages": [

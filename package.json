@@ -1,9 +1,9 @@
 {
-  "name": "@openmrs/esm-template-app",
+  "name": "@nmrs-community/esm-nmrscustomui-app",
   "version": "4.0.0",
   "license": "MPL-2.0",
-  "description": "An OpenMRS seed application for building microfrontends",
-  "browser": "dist/openmrs-esm-template-app.js",
+  "description": "An OpenMRS EMS application microfrontends for NigeriaMRS CustomUI",
+  "browser": "dist/nmrs-community-esm-nmrscustomui-app.js",
   "main": "src/index.ts",
   "source": true,
   "scripts": {
@@ -41,6 +41,8 @@
   },
   "dependencies": {
     "@carbon/react": "^1.76.0",
+    "highcharts": "^12.2.0",
+    "highcharts-react-official": "^3.2.2",
     "lodash-es": "^4.17.21"
   },
   "peerDependencies": {
