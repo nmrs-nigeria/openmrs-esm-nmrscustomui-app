@@ -32,19 +32,21 @@ const PateintTreatmentChart: React.FC = () => {
       var flagDataJSON = data.results[0].chartdata;
       var flagData = JSON.parse(flagDataJSON);
 
-      if (flagData.nextappointmentbeforelastone != 'NA') {
-        var apptcompliance = document.getElementById('apptcompliance');
-        if (flagData.nextappointmentbeforelastone == 'Red') {
-          apptcompliance.style.setProperty('background', 'linear-gradient(to right, red, white)', 'important');
+      if (flagData.hasOwnProperty('nextappointmentbeforelastone')) {
+        if (flagData.nextappointmentbeforelastone != 'NA') {
+          var apptcompliance = document.getElementById('apptcompliance');
+          if (flagData.nextappointmentbeforelastone == 'Red') {
+            apptcompliance.style.setProperty('background', 'linear-gradient(to right, red, white)', 'important');
+          }
+          if (flagData.nextappointmentbeforelastone == 'Green') {
+            apptcompliance.style.setProperty('background', 'linear-gradient(to right, green, white)', 'important');
+          }
+          if (flagData.nextappointmentbeforelastone == 'Yellow') {
+            apptcompliance.style.setProperty('background', 'linear-gradient(to right, yellow, white)', 'important');
+          }
+          apptcompliance.style.setProperty('color', '#fff', 'important');
+          document.getElementById('lastdrugpickup').innerText = flagData.lastdrugpickupdate;
         }
-        if (flagData.nextappointmentbeforelastone == 'Green') {
-          apptcompliance.style.setProperty('background', 'linear-gradient(to right, green, white)', 'important');
-        }
-        if (flagData.nextappointmentbeforelastone == 'Yellow') {
-          apptcompliance.style.setProperty('background', 'linear-gradient(to right, yellow, white)', 'important');
-        }
-        apptcompliance.style.setProperty('color', '#fff', 'important');
-        document.getElementById('lastdrugpickup').innerText = flagData.lastdrugpickupdate;
       }
 
       if (flagData.vlflag != 'NA') {
@@ -274,6 +276,12 @@ const PateintTreatmentChart: React.FC = () => {
               label: {
                 text: 'IIT:' + totalDaysIIT + ' days',
                 align: 'left',
+                verticalAlign: 'top',
+                rotation: 90,
+                style: {
+                  color: '#000',
+                  fontWeight: 'bold',
+                },
                 /*align: 'center',  */
               },
             });
