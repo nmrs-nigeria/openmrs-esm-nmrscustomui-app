@@ -543,7 +543,7 @@ const PateintTreatmentChart: React.FC = () => {
   }, [patientUuid]);
 
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <div style={{ fontWeight: 'bold', marginBottom: '0.5rem', padding: '5px' }}>Flags</div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', gap: '1rem', marginBottom: '1rem' }}>
@@ -685,7 +685,7 @@ const PateintTreatmentChart: React.FC = () => {
       <div id="loadingGifdiv" style={{ textAlign: 'center' }}>
         <img id="loadingGif" src={loadingImage} width={50} height={50} />
       </div>
-      <div id="container" ref={chartContainerRef} style={{ width: '1100px', height: '500px', overflow: 'hidden' }} />
+      <div id="container" ref={chartContainerRef} style={{ width: '100%', height: '500px', overflow: 'hidden' }} />
     </div>
   );
 };
