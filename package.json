@@ -1,6 +1,6 @@
 {
   "name": "@nmrs-community/esm-nmrscustomui-app",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MPL-2.0",
   "description": "An OpenMRS EMS application microfrontends for NigeriaMRS CustomUI",
   "browser": "dist/nmrs-community-esm-nmrscustomui-app.js",

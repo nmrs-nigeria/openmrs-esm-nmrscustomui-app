@@ -151,7 +151,7 @@ const PateintTreatmentChart: React.FC = () => {
 
       var minDate = new Date();
       var maxDate = new Date();
-      var iitData: Highcharts.XAxisPlotBandsOptions[] = [];
+      var iitData = new Array();
 
       var dosesRemaing = new Array();
       var dosesWithSurplus = new Array();
@@ -219,39 +219,39 @@ const PateintTreatmentChart: React.FC = () => {
         }
       }
 
-      var iitLoadData = JSON.parse(chartData.iit);
-      // console.log("pickup", pickupDot);
-      if (iitLoadData !== null) {
-        // console.log("iit",response);
-        var tempData = iitLoadData.data;
-        for (var i = 0; i < tempData.length; i++) {
-          if (tempData[i]['IIT'] == 1) {
-            var totalDaysIIT = tempData[i]['IIT_duration'];
-            var endDate = new Date(tempData[i]['date_actual']);
-            var startDate = new Date(endDate);
-            endDate.setDate(endDate.getDate() - totalDaysIIT);
-
-            console.log('IIT :' + totalDaysIIT, startDate);
-
-            iitData.push({
-              color: colorYellow,
-              from: startDate.getTime(), //Date.UTC(2016,10,28),
-              to: endDate.getTime(), //Date.UTC(2017,1,9 ),
-              label: {
-                text: 'IIT:' + totalDaysIIT + ' days',
-                align: 'left',
-                verticalAlign: 'top',
-                rotation: 0, // Keep horizontal
-                style: {
-                  color: '#000',
-                  fontWeight: 'bold',
-                },
-                /*align: 'center',  */
-              },
-            });
-          }
-        }
-      }
+      // var iitLoadData = JSON.parse(chartData.iit);
+      // // console.log("pickup", pickupDot);
+      // if (iitLoadData !== null) {
+      //   // console.log("iit",response);
+      //   var tempData = iitLoadData.data;
+      //   for (var i = 0; i < tempData.length; i++) {
+      //     if (tempData[i]['IIT'] == 1) {
+      //       var totalDaysIIT = tempData[i]['IIT_duration'];
+      //       var endDate = new Date(tempData[i]['date_actual']);
+      //       var startDate = new Date(endDate);
+      //       endDate.setDate(endDate.getDate() - totalDaysIIT);
+      //
+      //       console.log('IIT :' + totalDaysIIT, startDate);
+      //
+      //       iitData.push({
+      //         color: colorYellow,
+      //         from: startDate.getTime(), //Date.UTC(2016,10,28),
+      //         to: endDate.getTime(), //Date.UTC(2017,1,9 ),
+      //         label: {
+      //           text: 'IIT:' + totalDaysIIT + ' days',
+      //           align: 'left',
+      //          /* verticalAlign: 'top',
+      //           rotation: 0, // Keep horizontal
+      //           style: {
+      //             color: '#000',
+      //             fontWeight: 'bold',
+      //           },*/
+      //           /*align: 'center',  */
+      //         },
+      //       });
+      //     }
+      //   }
+      // }
 
       var iitLoadData = JSON.parse(chartData.iit);
       // console.log("pickup", pickupDot);
@@ -313,19 +313,19 @@ const PateintTreatmentChart: React.FC = () => {
               //Get and set the IIT total
               var iit_total = document.getElementById('iit_total');
               if (iit_total) {
-                iit_total.innerText = chartData.iit_total;
+                iit_total.innerText = Math.round(chartData.iit_total).toString();
               }
 
               //Get and set the last_iit
               var last_iit = document.getElementById('last_iit');
               if (last_iit) {
-                last_iit.innerText = chartData.last_iit + ' days';
+                last_iit.innerText = Math.round(chartData.last_iit).toString() + ' days';
               }
 
               //Get and set the time_since_last_iit
               var time_since_last_iit = document.getElementById('time_since_last_iit');
               if (time_since_last_iit) {
-                time_since_last_iit.innerText = chartData.time_since_last_iit + ' days';
+                time_since_last_iit.innerText = Math.round(chartData.time_since_last_iit).toString() + ' days';
               }
 
               //Get and set the iit_prediction
