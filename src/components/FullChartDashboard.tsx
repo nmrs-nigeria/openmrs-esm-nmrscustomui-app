@@ -62,7 +62,7 @@ const PateintTreatmentChart: React.FC = () => {
         document.getElementById('vlflag').innerText = flagData.currentvl + 'cp/ml ' + flagData.dateofcurrentvl;
       }
 
-      if (flagData.dateEligibleVL != 'NA') {
+      if (flagData.dateEligibleVLflag != 'NA') {
         var dateEligibleVLbg = document.getElementById('dateEligibleVLbg');
         if (flagData.dateEligibleVLflag == 'Red') {
           dateEligibleVLbg.style.setProperty('background', 'linear-gradient(to right, red, white)', 'important');
@@ -94,19 +94,21 @@ const PateintTreatmentChart: React.FC = () => {
         }
       }
 
-      if (flagData.bloodpressure != 'NA') {
-        var bloodpressurebg = document.getElementById('bloodpressurebg');
-        if (flagData.bloodpressure == 'high') {
-          bloodpressurebg.style.setProperty('background', 'linear-gradient(to right, red, white)', 'important');
+      if (flagData.hasOwnProperty('bloodpressure')) {
+        if (flagData.bloodpressure != 'NA') {
+          var bloodpressurebg = document.getElementById('bloodpressurebg');
+          if (flagData.bloodpressure == 'high') {
+            bloodpressurebg.style.setProperty('background', 'linear-gradient(to right, red, white)', 'important');
+          }
+          if (flagData.bloodpressure == 'normal') {
+            bloodpressurebg.style.setProperty('background', 'linear-gradient(to right, green, white)', 'important');
+          }
+          if (flagData.bloodpressure == 'prehigh') {
+            bloodpressurebg.style.setProperty('background', 'linear-gradient(to right, yellow, white)', 'important');
+          }
+          bloodpressurebg.style.setProperty('color', '#fff', 'important');
+          document.getElementById('bloodpressure').innerText = flagData.bloodpressurevalue;
         }
-        if (flagData.bloodpressure == 'normal') {
-          bloodpressurebg.style.setProperty('background', 'linear-gradient(to right, green, white)', 'important');
-        }
-        if (flagData.bloodpressure == 'prehigh') {
-          bloodpressurebg.style.setProperty('background', 'linear-gradient(to right, yellow, white)', 'important');
-        }
-        bloodpressurebg.style.setProperty('color', '#fff', 'important');
-        document.getElementById('bloodpressure').innerText = flagData.bloodpressure;
       }
 
       if (flagData.biomtetricstatus != 'NA') {
