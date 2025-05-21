@@ -276,12 +276,6 @@ const PateintTreatmentChart: React.FC = () => {
               label: {
                 text: 'IIT:' + totalDaysIIT + ' days',
                 align: 'left',
-                verticalAlign: 'top',
-                rotation: 90,
-                style: {
-                  color: '#000',
-                  fontWeight: 'bold',
-                },
                 /*align: 'center',  */
               },
             });
