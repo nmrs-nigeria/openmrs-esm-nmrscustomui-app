@@ -1,19 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Highcharts from 'highcharts';
 import { openmrsFetch } from '@openmrs/esm-framework';
-import { getPatientUuidFromStore } from '../store/patient-chart-store';
 import loadingImage from '../resources/assets/loading.gif';
 import styles from '../root.scss';
 
-const PateintTreatmentChart: React.FC = () => {
-  const chartContainerRef = useRef<HTMLDivElement | null>(null);
-  const [chartLoaded, setChartLoaded] = useState(false);
+interface Props {
+  patientUuid: string;
+}
 
-  const [mychartData, setChartData] = useState<any>(null);
+const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
+  const chartContainerRef = useRef<HTMLDivElement | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const patientUuid = getPatientUuidFromStore();
 
   console.log('patientUuid ' + patientUuid);
 
