@@ -8,8 +8,9 @@ interface Props {
   patientUuid: string;
 }
 
-const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
-  const chartContainerRef = useRef<HTMLDivElement | null>(null);
+var PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
+  var chartContainerRef = useRef<HTMLDivElement | null>(null);
+  var chartRef = useRef<Highcharts.Chart | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -19,11 +20,11 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
     // You can type this more strictly if you know the response structure
     [key: string]: any;
   }
-  const getPatientFlagData = async () => {
+  var getPatientFlagData = async () => {
     try {
       console.log('Fetching patient flag...');
 
-      const { data } = await openmrsFetch<PatientFlagResponse>(
+      var { data } = await openmrsFetch<PatientFlagResponse>(
         `/ws/rest/v1/customuinmrs/patientflags?v=full&patient=${patientUuid}`,
       );
       //console.log('Patient flag data:', data);
@@ -134,11 +135,13 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
     // You can type this more strictly if you know the response structure
     [key: string]: any;
   }
-  const getPatientChartData = async () => {
+  var getPatientChartData = async () => {
     try {
+      var gif = document.getElementById('loadingGif');
+      var loadingGifdiv = document.getElementById('loadingGifdiv');
       console.log('📡 Fetching patient chart...');
 
-      const { data } = await openmrsFetch<PatientChartResponse>(
+      var { data } = await openmrsFetch<PatientChartResponse>(
         `/ws/rest/v1/customuinmrs/patientchart?v=full&patient=${patientUuid}`,
       );
       console.log('✅ Patient Chart Data:', data);
@@ -164,7 +167,7 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
 
       var maxPickup = 0; //this is used to know what the max height for the left y axis should be. i.e the highest days of refill the patient has ever had. plus surplus
 
-      const obj = data;
+      var obj = data;
       console.log('OBJ ' + obj);
       var chartDataJSON = obj.results[0].chartdata;
       var chartData = JSON.parse(chartDataJSON);
@@ -290,16 +293,14 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
         regimenData.push({ x: date1, y: 60, currRegimen: currRegimen });
       }
 
-      const chartOptions: Highcharts.Options = {
+      var chartOptions: Highcharts.Options = {
         chart: {
           events: {
             load: function () {
-              const gif = document.getElementById('loadingGif');
               if (gif) {
                 gif.style.display = 'none';
               } // ✅ hide the gif
 
-              const loadingGifdiv = document.getElementById('loadingGifdiv');
               if (loadingGifdiv) {
                 loadingGifdiv.style.display = 'none';
               }
@@ -331,7 +332,7 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
               //Get and set the iit_prediction
               if (chartData.hasOwnProperty('iit_prediction')) {
                 var iitprediction = (chartData.iit_prediction * 100).toFixed(2);
-                const iit_prediction = document.getElementById('iit_predictionBg');
+                var iit_prediction = document.getElementById('iit_predictionBg');
                 if (iit_prediction) {
                   if (parseFloat(iitprediction) < 50) {
                     iit_prediction.style.setProperty('background-color', '#7bdcbc', 'important');
@@ -353,7 +354,7 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
                 }
               }
               //Get and set the iit_last_12_mnths
-              const iit_last_12_mnths = document.getElementById('iit_last_12_mnths');
+              var iit_last_12_mnths = document.getElementById('iit_last_12_mnths');
               if (iit_last_12_mnths) {
                 iit_last_12_mnths.innerText = chartData.iit_last_12_mnths;
               }
@@ -525,21 +526,46 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
         ],
       };
 
+      // if (chartContainerRef.current) {
+      //   Highcharts.chart(chartContainerRef.current, chartOptions);
+      // }
+
+      // if (
+      //   chartContainerRef.current &&
+      //   chartOptions &&
+      //   Object.keys(chartOptions).length > 0
+      // ) {
+      //
+      //   Highcharts.chart(chartContainerRef.current, chartOptions);
+      // }
+
+      if (chartRef.current) {
+        chartRef.current.destroy(); // ✅ destroy previous chart
+      }
+
       if (chartContainerRef.current) {
-        Highcharts.chart(chartContainerRef.current, chartOptions);
+        chartRef.current = Highcharts.chart(chartContainerRef.current, chartOptions);
       }
     } catch (err) {
       console.error('❌ Fetch error:', err);
       setError('Failed to fetch patient chart data');
     } finally {
       setLoading(false);
+      if (gif) {
+        gif.style.display = 'none';
+      } // ✅ hide the gif
+
+      if (loadingGifdiv) {
+        loadingGifdiv.style.display = 'none';
+      }
     }
   };
 
   useEffect(() => {
-    getPatientFlagData();
-    getPatientChartData();
-    console.log('Hiii');
+    if (patientUuid) {
+      getPatientFlagData();
+      getPatientChartData();
+    }
   }, [patientUuid]);
 
   return (
@@ -685,7 +711,7 @@ const PateintTreatmentChart: React.FC<Props> = ({ patientUuid }) => {
       <div id="loadingGifdiv" style={{ textAlign: 'center' }}>
         <img id="loadingGif" src={loadingImage} width={50} height={50} />
       </div>
-      <div id="container" ref={chartContainerRef} style={{ width: '100%', height: '500px', overflow: 'hidden' }} />
+      <div id="container" ref={chartContainerRef} style={{ width: '100%', height: '100%', overflow: 'hidden' }} />
     </div>
   );
 };
